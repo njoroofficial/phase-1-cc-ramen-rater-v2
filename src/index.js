@@ -2,7 +2,20 @@
 
 // Callbacks
 const handleClick = (ramen) => {
-  // Add code
+  // Get the ramen-detail div elements
+  const detailImg = document.querySelector(".detail-image");
+  const name = document.querySelector(".name");
+  const restaurant = document.querySelector(".restaurant");
+  const ratingDisplay = document.getElementById("rating-display");
+  const commentDisplay = document.getElementById("comment-display");
+
+  // Update the detail section with the ramen data
+  detailImg.src = ramen.image;
+  detailImg.alt = ramen.name;
+  name.textContent = ramen.name;
+  restaurant.textContent = ramen.restaurant;
+  ratingDisplay.textContent = ramen.rating;
+  commentDisplay.textContent = ramen.comment;
 };
 
 const addSubmitListener = () => {
@@ -24,12 +37,15 @@ const displayRamens = () => {
           img.src = ramen.image;
           img.alt = ramen.name;
 
+          // Add click event listener to each image
+          img.addEventListener("click", () => handleClick(ramen));
+
           // Append the image to the ramen-menu div
           ramenMenu.appendChild(img);
         });
       });
-  } catch {
-    (error) => console.error("Error fetching ramens:", error);
+  } catch (error) {
+    console.error("Error fetching ramens:", error);
   }
 };
 
