@@ -19,7 +19,40 @@ const handleClick = (ramen) => {
 };
 
 const addSubmitListener = () => {
-  // Add code
+  // Get the new-ramen form
+  const form = document.getElementById("new-ramen");
+
+  // Add submit event listener
+  form.addEventListener("submit", (event) => {
+    // Prevent default form submission behavior
+    event.preventDefault();
+
+    // Get form data
+    const newRamen = {
+      name: event.target.name.value,
+      restaurant: event.target.restaurant.value,
+      image: event.target.image.value,
+      rating: event.target.rating.value,
+      comment: event.target["new-comment"].value,
+    };
+
+    // Get the ramen-menu div
+    const ramenMenu = document.getElementById("ramen-menu");
+
+    // Create new img element for the new ramen
+    const img = document.createElement("img");
+    img.src = newRamen.image;
+    img.alt = newRamen.name;
+
+    // Add click event listener to the new image
+    img.addEventListener("click", () => handleClick(newRamen));
+
+    // Append the new image to the ramen-menu div
+    ramenMenu.appendChild(img);
+
+    // Reset the form
+    form.reset();
+  });
 };
 
 const displayRamens = () => {
@@ -53,6 +86,7 @@ const main = () => {
   // Invoke displayRamens here
   displayRamens();
   // Invoke addSubmitListener here
+  addSubmitListener();
 };
 
 main();
